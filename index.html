@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Antoni.pl — Sklep rang</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#090d18;
+ color:white;
+}
+header{
+ padding:28px 15px;
+ text-align:center;
+ background:linear-gradient(135deg,#101d38,#152b50);
+ border-bottom:2px solid #31d68b;
+}
+header h1{margin:0;color:#42e69a;font-size:38px}
+header p{color:#cbd5e1}
+main{max-width:1000px;margin:30px auto;padding:15px}
+h2{text-align:center;color:#42e69a}
+.ranks{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+ gap:18px;
+}
+.card{
+ background:#141c2e;
+ border:1px solid #293852;
+ border-radius:15px;
+ padding:22px;
+ text-align:center;
+ box-shadow:0 5px 20px #0005;
+}
+.card h3{font-size:25px;margin:5px}
+.price{font-size:25px;color:#42e69a;font-weight:bold}
+.card ul{text-align:left;line-height:1.9;padding-left:20px}
+.vip{color:#54c8ff}
+.svip{color:#b77aff}
+.mvp{color:#ffbd50}
+.elita{color:#ff648b}
+button{
+ background:#31d68b;
+ color:#07130d;
+ border:0;
+ border-radius:9px;
+ padding:13px 20px;
+ font-size:16px;
+ font-weight:bold;
+ cursor:pointer;
+}
+button:hover{background:#55f3a9}
+.form{
+ max-width:500px;
+ margin:35px auto;
+ background:#141c2e;
+ padding:25px;
+ border-radius:15px;
+}
+input,select{
+ width:100%;
+ padding:13px;
+ margin:9px 0 17px;
+ border-radius:8px;
+ border:1px solid #40516d;
+ background:#0b1220;
+ color:white;
+ font-size:16px;
+}
+.notice{
+ background:#342b12;
+ border:1px solid #8d7125;
+ padding:15px;
+ border-radius:10px;
+ color:#ffe5a0;
+ line-height:1.5;
+}
+#message{margin-top:15px;line-height:1.5}
+footer{text-align:center;padding:25px;color:#8291a8}
+</style>
+</head>
+<body>
+
+<header>
+ <h1>Antoni.pl</h1>
+ <p>Oficjalny sklep rang Minecraft</p>
+ <p>Wszystkie rangi za darmo!</p>
+</header>
+
+<main>
+ <h2>⭐ Wybierz swoją rangę</h2>
+
+ <div class="ranks">
+
+  <div class="card">
+   <h3 class="vip">VIP</h3>
+   <div class="price">0 zł</div>
+   <p>Ważność: 30 dni</p>
+   <ul>
+    <li>Prefix [VIP]</li>
+    <li>Kolorowy nick</li>
+    <li>2 zestawy dziennie</li>
+    <li>3 domy</li>
+   </ul>
+   <button onclick="chooseRank('VIP')">Wybierz VIP</button>
+  </div>
+
+  <div class="card">
+   <h3 class="svip">SVIP</h3>
+   <div class="price">0 zł</div>
+   <p>Ważność: 30 dni</p>
+   <ul>
+    <li>Prefix [SVIP]</li>
+    <li>Kolorowy nick</li>
+    <li>5 zestawów dziennie</li>
+    <li>5 domów</li>
+    <li>Wszystkie korzyści VIP</li>
+   </ul>
+   <button onclick="chooseRank('SVIP')">Wybierz SVIP</button>
+  </div>
+
+  <div class="card">
+   <h3 class="mvp">MVP</h3>
+   <div class="price">0 zł</div>
+   <p>Ważność: 30 dni</p>
+   <ul>
+    <li>Prefix [MVP]</li>
+    <li>7 zestawów dziennie</li>
+    <li>10 domów</li>
+    <li>Wszystkie korzyści SVIP</li>
+   </ul>
+   <button onclick="chooseRank('MVP')">Wybierz MVP</button>
+  </div>
+
+  <div class="card">
+   <h3 class="elita">ELITA</h3>
+   <div class="price">0 zł</div>
+   <p>Ważność: 30 dni</p>
+   <ul>
+    <li>Prefix [ELITA]</li>
+    <li>10 zestawów dziennie</li>
+    <li>15 domów</li>
+    <li>Efekt cząsteczek</li>
+    <li>Wszystkie korzyści MVP</li>
+   </ul>
+   <button onclick="chooseRank('ELITA')">Wybierz ELITA</button>
+  </div>
+
+ </div>
+
+ <section class="form">
+  <h2>Odbierz rangę</h2>
+
+  <div class="notice">
+   To wersja demonstracyjna sklepu. Formularz nie nadaje jeszcze rangi na serwerze Minecraft. Do tego potrzebne jest połączenie z serwerem.
+  </div>
+
+  <label for="nickname">Nick Minecraft:</label>
+  <input id="nickname" maxlength="16" placeholder="Wpisz swój nick">
+
+  <label for="rank">Wybrana ranga:</label>
+  <select id="rank">
+   <option value="VIP">VIP</option>
+   <option value="SVIP">SVIP</option>
+   <option value="MVP">MVP</option>
+   <option value="ELITA">ELITA</option>
+  </select>
+
+  <button onclick="claimRank()">Odbierz za 0 zł</button>
+  <div id="message"></div>
+ </section>
+</main>
+
+<footer>
+ © 2026 Antoni.pl — Sklep rang Minecraft
+</footer>
+
+<script>
+function chooseRank(rank){
+ document.getElementById("rank").value=rank;
+ document.querySelector(".form").scrollIntoView({behavior:"smooth"});
+}
+
+function claimRank(){
+ const nick=document.getElementById("nickname").value.trim();
+ const rank=document.getElementById("rank").value;
+ const message=document.getElementById("message");
+
+ if(!/^[A-Za-z0-9_]{3,16}$/.test(nick)){
+  message.style.color="#ff7373";
+  message.textContent="Wpisz prawidłowy nick Minecraft (3–16 znaków).";
+  return;
+ }
+
+ message.style.color="#ffe5a0";
+ message.textContent="Wybrano rangę "+rank+" dla gracza "+nick+". Ranga nie została jeszcze nadana. Sklep wymaga połączenia z serwerem Minecraft.";
+}
+</script>
+
+</body>
+  </html>
+  
